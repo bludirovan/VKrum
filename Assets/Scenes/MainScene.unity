@@ -1623,6 +1623,11 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.38
       objectReference: {fileID: 0}
+    - target: {fileID: 6346801021121784098, guid: fb078040c25314add990d8ab1b4bfebc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.499
+      objectReference: {fileID: 0}
     - target: {fileID: 6739866695555397643, guid: fb078040c25314add990d8ab1b4bfebc,
         type: 3}
       propertyPath: m_Radius
