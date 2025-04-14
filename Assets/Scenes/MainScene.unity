@@ -740,12 +740,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7a828620bb3024a6ca48b2d594274448,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7a828620bb3024a6ca48b2d594274448,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.87
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7a828620bb3024a6ca48b2d594274448,
         type: 3}
@@ -1320,11 +1320,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1793467286}
-  offset: {x: 0, y: 10, z: -10}
-  followSmoothness: 5
-  minY: 5
-  maxY: 15
-  lookSmoothness: 5
+  baseOffset: {x: 0, y: 5, z: -10}
+  smoothSpeed: 0.5
+  rotationSpeed: 10
+  minDistance: 2
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  collisionBuffer: 0.5
+  occlusionCheckRadius: 0.5
+  safeZoneMin: {x: 0.3, y: 0.3}
+  safeZoneMax: {x: 0.7, y: 0.7}
+  viewportAdjustmentSpeed: 2
+  minCameraHeight: 1
 --- !u!4 &1328215502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2058761482046313021, guid: fb078040c25314add990d8ab1b4bfebc,
@@ -2457,11 +2465,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 58901790688167643, guid: fb078040c25314add990d8ab1b4bfebc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
     - target: {fileID: 66812189049861912, guid: fb078040c25314add990d8ab1b4bfebc,
         type: 3}
       propertyPath: m_Radius
