@@ -1,44 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SmartFollowCamera : MonoBehaviour
 {
+    [Header("Цель")]
     public Transform target;
-    public Vector3 localOffset = new Vector3(0, 3, -6);
-    public float smoothSpeed = 0.15f;
-    public float collisionBuffer = 0.2f;
-    public LayerMask obstacleLayers;
 
-    void LateUpdate()
+    [Header("Настройки смещения камеры")]
+    public Vector3 offset = new Vector3(0f, 10f, -10f); // Наклон сверху-сзади
+    public float followSmoothness = 5f;                 // Насколько плавно камера следует
+
+    [Header("Ограничения по высоте")]
+    public float minY = 5f;
+    public float maxY = 15f;
+
+    [Header("Настройки поворота")]
+    public float lookSmoothness = 5f;
+
+    private void LateUpdate()
     {
         if (target == null) return;
 
-        // Расчёт смещения с учётом локальных осей игрока
-        Vector3 right = target.right;
-        Vector3 up = target.up;
-        Vector3 forward = target.forward;
+        // --- 1. Целевая позиция камеры ---
+        Vector3 desiredPosition = target.position + offset;
 
-        // Локальный offset относительно ориентации игрока
-        Vector3 desiredOffset =
-            right * localOffset.x +
-            up * localOffset.y +
-            forward * localOffset.z;
+        // Немного варьируем Y, если нужно (например, можешь сюда вставить динамику от скорости или местности)
+        desiredPosition.y = Mathf.Clamp(desiredPosition.y, minY, maxY);
 
-        Vector3 desiredPosition = target.position + desiredOffset;
+        // --- 2. Плавное движение ---
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, followSmoothness * Time.deltaTime);
 
-        // Проверка столкновений
-        RaycastHit hit;
-        if (Physics.Linecast(target.position, desiredPosition, out hit, obstacleLayers))
+        // --- 3. Плавный поворот к игроку ---
+        Vector3 lookDir = target.position - transform.position;
+        if (lookDir.sqrMagnitude > 0.001f)
         {
-            desiredPosition = hit.point + hit.normal * collisionBuffer;
+            Quaternion desiredRotation = Quaternion.LookRotation(lookDir.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, lookSmoothness * Time.deltaTime);
         }
-
-        // Плавное движение камеры
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
-
-        // Камера смотрит на игрока, но "вверх" тоже подстраивается под локальный up
-        transform.rotation = Quaternion.LookRotation(target.position - transform.position, target.up);
     }
 }
+
+
