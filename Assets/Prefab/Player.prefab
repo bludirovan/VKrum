@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   _groundCheck: {fileID: 3441774759941300610}
   _cam: {fileID: 0}
   moveJoystick: {fileID: 0}

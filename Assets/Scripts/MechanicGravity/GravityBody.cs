@@ -9,9 +9,11 @@ public class GravityBody : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private List<GravityArea> _gravityAreas;
+    private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _gravityAreas = new List<GravityArea>();
         _rigidbody.useGravity = true;

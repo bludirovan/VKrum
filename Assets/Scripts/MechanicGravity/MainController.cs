@@ -22,13 +22,19 @@ public class MainController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _direction;
     private GravityBody _gravityBody;
+    private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _gravityBody = GetComponent<GravityBody>();
+        
 
-        if (jumpButton != null)
+        if (jumpButton == null)
+        {
+        }
+        else
             jumpButton.onClick.AddListener(Jump);
 
         if (polarityButton != null)
@@ -37,7 +43,19 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
+
         _direction = new Vector3(moveJoystick.Horizontal, 0f, moveJoystick.Vertical).normalized;
+
+
+        //animations
+      //  if(_direction == Vector3.zero) 
+        {
+         //   animator.SetFloat("speed", 0);
+        }
+      //  else
+        {
+         //   animator.SetFloat("speed", 1);
+        }
     }
 
     void FixedUpdate()
