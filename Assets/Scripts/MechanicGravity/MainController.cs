@@ -17,7 +17,7 @@ public class MainController : MonoBehaviour
     private float _groundCheckRadius = 0.3f;
     private float _speed = 8f;
     private float _turnSpeed = 1500f;
-    private float _jumpForce = 5f;
+    private float _jumpForce = 50f;
 
     private Rigidbody _rigidbody;
     private Vector3 _direction;
