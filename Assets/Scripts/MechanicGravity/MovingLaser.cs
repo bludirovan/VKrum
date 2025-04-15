@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovingLaser : MonoBehaviour
 {
@@ -14,6 +15,26 @@ public class MovingLaser : MonoBehaviour
 
     private Vector3 startPosition;
     private LineRenderer lineRenderer;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.Die();
+                Debug.Log("????? ????? ? ?????. ????????? PlayerHealth ?? ??????!");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else
+            {
+                Debug.Log("????? ????? ? ?????. ????????? PlayerHealth ?? ??????!");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+
+        }
+    }
 
     void Start()
     {
