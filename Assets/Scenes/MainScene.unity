@@ -1238,11 +1238,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1690032829}
-  offset: {x: 0, y: 10, z: -10}
-  followSmoothness: 5
-  minY: 5
-  maxY: 15
-  lookSmoothness: 5
+  localOffset: {x: 0, y: 3, z: -6}
+  smoothSpeed: 10
+  collisionBuffer: 0.2
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &1328215502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2058761482046313021, guid: fb078040c25314add990d8ab1b4bfebc,
@@ -1662,6 +1663,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1690032831}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b92852af756266b469a28a326e01a190,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1690032836}
   m_SourcePrefab: {fileID: 100100000, guid: b92852af756266b469a28a326e01a190, type: 3}
 --- !u!1 &1669139945
 GameObject:
@@ -1876,6 +1881,21 @@ MonoBehaviour:
   moveJoystick: {fileID: 1915288045}
   jumpButton: {fileID: 1380272170}
   polarityButton: {fileID: 1669139946}
+--- !u!114 &1690032836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690032828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559e2de3b29f348e3b7339cc0bcf774c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  deathScreen: {fileID: 1381569340}
+  restartDelay: 3
 --- !u!1 &1690969807
 GameObject:
   m_ObjectHideFlags: 0
