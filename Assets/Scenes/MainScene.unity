@@ -1275,6 +1275,10 @@ MonoBehaviour:
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 9
+  yawSpeed: 0.2
+  pitchSpeed: 0.2
+  minPitch: -20
+  maxPitch: 80
 --- !u!4 &1328215502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2058761482046313021, guid: fb078040c25314add990d8ab1b4bfebc,
