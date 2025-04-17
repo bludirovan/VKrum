@@ -20,4 +20,5 @@ public class JoystickFingerTracker : MonoBehaviour, IPointerDownHandler, IPointe
         if (ActiveFingerId == eventData.pointerId)
             ActiveFingerId = -1;
     }
+
 }

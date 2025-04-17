@@ -1,123 +1,69 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class SmartFollowCamera : MonoBehaviour
 {
-    [Header("Follow Settings")]
     public Transform target;
     public Vector3 localOffset = new Vector3(0, 3, -6);
     public float smoothSpeed = 10f;
+    public float rotationSpeed = 2f;
     public float collisionBuffer = 0.2f;
     public LayerMask obstacleLayers;
 
-    [Header("Swipe‑Look Settings")]
-    public float yawSpeed = 0.2f;
-    public float pitchSpeed = 0.2f;
-    public float minPitch = -20f;
-    public float maxPitch = 60f;
-
-    private bool isDragging;
-    private Vector2 lastTouchPos;
-    private float yaw, pitch;
     private Vector3 currentVelocity;
+    private Vector2 lookAngles; // x = yaw, y = pitch
+    private bool isDragging = false;
 
     void Start()
     {
-        if (target == null) { enabled = false; return; }
-        Vector3 e = transform.eulerAngles;
-        yaw = e.y;
-        pitch = e.x;
+        Vector3 dir = target.position - transform.position;
+        lookAngles.x = Quaternion.LookRotation(dir).eulerAngles.y;
+        lookAngles.y = Quaternion.LookRotation(dir).eulerAngles.x;
     }
 
     void Update()
     {
-        HandleSwipeInput();
+        // Обработка свайпа (или мыши)
+        if (Input.GetMouseButtonDown(0))
+            isDragging = true;
+
+        if (Input.GetMouseButtonUp(0))
+            isDragging = false;
+
+        if (isDragging)
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+
+            lookAngles.x += mouseX * rotationSpeed;
+            lookAngles.y -= mouseY * rotationSpeed;
+            lookAngles.y = Mathf.Clamp(lookAngles.y, -30f, 60f); // ограничение наклона
+        }
     }
 
     void LateUpdate()
     {
         if (target == null) return;
 
-        if (isDragging)
+        // Поворот offset согласно lookAngles
+        Quaternion lookRotation = Quaternion.Euler(lookAngles.y, lookAngles.x, 0f);
+        Vector3 rotatedOffset = lookRotation * localOffset;
+        Vector3 desiredPosition = target.position + rotatedOffset;
+
+        // Проверка столкновений
+        if (Physics.Linecast(target.position, desiredPosition, out RaycastHit hit, obstacleLayers))
         {
-            // ORBIT MODE
-            Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
-            Vector3 baseOff = Vector3.up * localOffset.y;
-            Vector3 horOff = rot * new Vector3(localOffset.x, 0f, localOffset.z);
-            Vector3 desiredPos = target.position + baseOff + horOff;
-
-            if (Physics.Linecast(target.position + baseOff, desiredPos, out RaycastHit hit, obstacleLayers))
-                desiredPos = hit.point + hit.normal * collisionBuffer;
-
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, 1f / smoothSpeed);
-            Quaternion lookRot = Quaternion.LookRotation((target.position + baseOff) - transform.position, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * smoothSpeed);
-        }
-        else
-        {
-            // FOLLOW MODE (твоя старая логика)
-            Vector3 offset = target.right * localOffset.x + target.up * localOffset.y + target.forward * localOffset.z;
-            Vector3 desiredPos = target.position + offset;
-            if (Physics.Linecast(target.position, desiredPos, out RaycastHit hit, obstacleLayers))
-                desiredPos = hit.point + hit.normal * collisionBuffer;
-
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, 1f / smoothSpeed);
-            Vector3 lookDir = target.position - transform.position;
-            if (lookDir.sqrMagnitude > 0.01f)
-            {
-                Quaternion tRot = Quaternion.LookRotation(lookDir, target.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, tRot, Time.deltaTime * smoothSpeed);
-            }
-        }
-    }
-
-    private void HandleSwipeInput()
-    {
-        // Мобильный
-        if (Input.touchCount == 1)
-        {
-            Touch t = Input.GetTouch(0);
-            if (EventSystem.current.IsPointerOverGameObject(t.fingerId)) return;
-
-            if (t.phase == TouchPhase.Began)
-            {
-                isDragging = true;
-                lastTouchPos = t.position;
-            }
-            else if (t.phase == TouchPhase.Moved && isDragging)
-            {
-                Vector2 delta = t.position - lastTouchPos;
-                lastTouchPos = t.position;
-                yaw += delta.x * yawSpeed;
-                pitch -= delta.y * pitchSpeed;
-                pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-            }
-            else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
-            {
-                isDragging = false;
-            }
+            desiredPosition = hit.point + hit.normal * collisionBuffer;
         }
 
-        // Редактор (мышь)
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
+        // Плавное движение
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref currentVelocity, 1f / smoothSpeed);
+
+        // Смотрим на игрока
+        Vector3 lookDir = target.position - transform.position;
+        if (lookDir.sqrMagnitude > 0.01f)
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-            isDragging = true;
-            lastTouchPos = Input.mousePosition;
+            Quaternion targetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smoothSpeed);
         }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            isDragging = false;
-        }
-        if (isDragging && Input.GetMouseButton(0))
-        {
-            Vector2 delta = (Vector2)Input.mousePosition - lastTouchPos;
-            lastTouchPos = Input.mousePosition;
-            yaw += delta.x * yawSpeed;
-            pitch -= delta.y * pitchSpeed;
-            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-        }
-#endif
     }
 }
