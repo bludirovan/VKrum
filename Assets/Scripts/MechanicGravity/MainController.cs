@@ -1,4 +1,3 @@
-// MainController.cs
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +23,6 @@ public class MainController : MonoBehaviour
     private GravityBody _gravityBody;
     private Vector3 _direction;
     private bool isFrozen = false;
-    private bool isReversed = false;  // флаг, развернут ли персонаж «назад»
 
     void Start()
     {
@@ -38,6 +36,7 @@ public class MainController : MonoBehaviour
     void Update()
     {
         if (isFrozen) return;
+
         _direction = new Vector3(moveJoystick.Horizontal, 0f, moveJoystick.Vertical).normalized;
     }
 
@@ -45,31 +44,16 @@ public class MainController : MonoBehaviour
     {
         if (isFrozen) return;
 
-        if (_direction.magnitude > 0.1f)
+        bool isRunning = _direction.magnitude > 0.1f;
+        if (isRunning)
         {
-            // 1) Если идём «назад» и ещё не развернуты — поворачиваем на 180°
-            if (_direction.z < -0.1f && !isReversed)
-            {
-                transform.Rotate(0f, 180f, 0f);
-                isReversed = true;
-            }
-            // 2) Если идём «вперёд» и развернуты — возвращаемся
-            else if (_direction.z > 0.1f && isReversed)
-            {
-                transform.Rotate(0f, 180f, 0f);
-                isReversed = false;
-            }
-
-            // 3) Движемся вперёд по локальной оси
-            float forwardAmount = Mathf.Abs(_direction.z);
-            Vector3 movement = transform.forward * forwardAmount;
+            // Движение вперёд/назад
+            Vector3 movement = transform.forward * _direction.z;
             _rigidbody.MovePosition(_rigidbody.position + movement * (_speed * Time.fixedDeltaTime));
 
-            // 4) Поворот по оси Y (влево/вправо)
+            // Поворот
             Quaternion turnRotation = Quaternion.Euler(0f, _direction.x * (_turnSpeed * Time.fixedDeltaTime), 0f);
-            Quaternion newRotation = Quaternion.Slerp(_rigidbody.rotation,
-                                                     _rigidbody.rotation * turnRotation,
-                                                     Time.fixedDeltaTime * 3f);
+            Quaternion newRotation = Quaternion.Slerp(_rigidbody.rotation, _rigidbody.rotation * turnRotation, Time.fixedDeltaTime * 3f);
             _rigidbody.MoveRotation(newRotation);
         }
     }
