@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,4 +20,5 @@ public class JoystickFingerTracker : MonoBehaviour, IPointerDownHandler, IPointe
         if (ActiveFingerId == eventData.pointerId)
             ActiveFingerId = -1;
     }
+
 }
