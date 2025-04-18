@@ -37,8 +37,17 @@ public class MainController : MonoBehaviour
     {
         if (isFrozen) return;
 
-        _direction = new Vector3(moveJoystick.Horizontal, 0f, moveJoystick.Vertical).normalized;
+        // Считаем сырые значения с джойстика
+        float rawX = moveJoystick.Horizontal;
+        float rawZ = moveJoystick.Vertical;
+
+        // Запрещаем отрицательное значение по Z (назад)
+        float forwardZ = Mathf.Max(0f, rawZ);
+
+        // Собираем и нормализуем направление
+        _direction = new Vector3(rawX, 0f, forwardZ).normalized;
     }
+
 
     void FixedUpdate()
     {
