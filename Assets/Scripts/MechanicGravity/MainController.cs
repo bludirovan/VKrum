@@ -1,3 +1,119 @@
+// MainController.cs
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Rigidbody), typeof(GravityBody))]
+public class MainController : MonoBehaviour
+{
+    [Header("References")]
+    [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private Transform _cam;
+
+    [Header("UI Controls")]
+    public Joystick moveJoystick;
+    public Button jumpButton;
+    public Button polarityButton;
+
+    [Header("Movement Settings")]
+    [SerializeField] private float _groundCheckRadius = 0.3f;
+    [SerializeField] private float _speed = 8f;
+    [SerializeField] private float _turnSpeed = 10f;
+    [SerializeField] private float _jumpForce = 50f;
+
+    private Rigidbody _rb;
+    private GravityBody _gravityBody;
+    private Vector3 _moveDirection;
+    private bool _isFrozen = false;
+
+    void Start()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _gravityBody = GetComponent<GravityBody>();
+        jumpButton.onClick.AddListener(Jump);
+        polarityButton.onClick.AddListener(SwitchPolarity);
+    }
+
+    void Update()
+    {
+        if (_isFrozen) return;
+
+        // Read joystick input
+        float rawX = moveJoystick.Horizontal;
+        float rawZ = moveJoystick.Vertical;
+        Vector3 input = new Vector3(rawX, 0f, rawZ);
+
+        if (input.magnitude > 0.1f)
+        {
+            // Align movement to camera and gravity
+            Vector3 gravityUp = -_gravityBody.GravityDirection.normalized;
+            Vector3 camForward = Vector3.ProjectOnPlane(_cam.forward, gravityUp).normalized;
+            Vector3 camRight = Vector3.ProjectOnPlane(_cam.right, gravityUp).normalized;
+            _moveDirection = (camForward * input.z + camRight * input.x).normalized;
+        }
+        else
+        {
+            _moveDirection = Vector3.zero;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (_isFrozen) return;
+
+        if (_moveDirection.magnitude > 0.1f)
+        {
+            // Move
+            Vector3 newPos = _rb.position + _moveDirection * (_speed * Time.fixedDeltaTime);
+            _rb.MovePosition(newPos);
+
+            // Rotate smoothly towards move direction
+            Quaternion targetRot = Quaternion.LookRotation(_moveDirection, -_gravityBody.GravityDirection);
+            Quaternion slerped = Quaternion.Slerp(_rb.rotation, targetRot, _turnSpeed * Time.fixedDeltaTime);
+            _rb.MoveRotation(slerped);
+        }
+    }
+
+    private void Jump()
+    {
+        if (_isFrozen) return;
+        bool grounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
+        if (!grounded) return;
+
+        Vector3 jumpDir = _rb.useGravity ? Vector3.up : -_gravityBody.GravityDirection.normalized;
+        _rb.AddForce(jumpDir * _jumpForce, ForceMode.Impulse);
+    }
+
+    private void SwitchPolarity()
+    {
+        if (_isFrozen) return;
+        var area = _gravityBody.GetActiveGravityArea();
+        if (area != null)
+        {
+            area.LocalPolarity = !area.LocalPolarity;
+            Debug.Log($"Polarity switched on: {area.gameObject.name}");
+        }
+    }
+
+    public void FreezeMovement(float duration)
+    {
+        if (!_isFrozen)
+            StartCoroutine(FreezeCoroutine(duration));
+    }
+
+    private IEnumerator FreezeCoroutine(float duration)
+    {
+        _isFrozen = true;
+        yield return new WaitForSeconds(duration);
+        _isFrozen = false;
+    }
+}
+
+
+
+
+/*
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -104,4 +220,4 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isFrozen = false;
     }
-}
+}*/
