@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fb6db97ffe8850642af271d7548843fe
+guid: 585d2e48be92cad4194960a2d569f76d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -24,7 +24,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: animation_rest|animation_restAction
-      takeName: animation_rest|animation_restAction
-      internalID: 5658595365230238654
+      name: mixamo.com
+      takeName: mixamo.com
+      internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 29
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,35 +45,6 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: animation_rest|metarig.001|metarig|metarigAction
-      takeName: animation_rest|metarig.001|metarig|metarigAction
-      internalID: 5312316744354442062
-      firstFrame: 0
-      lastFrame: 30
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -113,7 +84,7 @@ ModelImporter:
     bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
-    maxBonesPerVertex: 8
+    maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
     meshOptimizationFlags: -1
@@ -141,29 +112,33 @@ ModelImporter:
     serializedVersion: 3
     human: []
     skeleton:
-    - name: IDLE(Clone)
+    - name: "\u0432\u043E\u0440(\u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F
+        \u043F\u043E\u043A\u043E\u044F)(Clone)"
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Retopo_Mesh1.004
-      parentName: IDLE(Clone)
-      position: {x: -0.0024289563, y: 0.37934342, z: 0.15197566}
-      rotation: {x: 0.70710665, y: 0.0000000026341782, z: -0.000000006585445, w: 0.7071069}
-      scale: {x: 0.010000001, y: 0.010000002, z: 0.010000002}
-    - name: Retopo_Mesh1.005
-      parentName: IDLE(Clone)
-      position: {x: -0.0000000041723265, y: 0.00000011920929, z: -0.00000016627479}
-      rotation: {x: 0.70710665, y: 0.0000000026341782, z: -0.000000006585445, w: 0.7071069}
-      scale: {x: 0.010000001, y: 0.010000002, z: 0.010000002}
-    - name: animation_rest
-      parentName: IDLE(Clone)
+    - name: Retopo_Mesh1.002
+      parentName: "\u0432\u043E\u0440(\u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F
+        \u043F\u043E\u043A\u043E\u044F)(Clone)"
+      position: {x: 0.010078205, y: 0.08575559, z: -0.020456284}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Retopo_Mesh1.003
+      parentName: "\u0432\u043E\u0440(\u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F
+        \u043F\u043E\u043A\u043E\u044F)(Clone)"
+      position: {x: -0.0024289712, y: 0.37934336, z: 0.15197587}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: metarig
+      parentName: "\u0432\u043E\u0440(\u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F
+        \u043F\u043E\u043A\u043E\u044F)(Clone)"
       position: {x: -0, y: -0.9876603, z: 0}
-      rotation: {x: -0.7071069, y: 0, z: -0, w: 0.7071067}
-      scale: {x: 59.588993, y: 59.588993, z: 59.588993}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 59.588997, y: 59.588997, z: 59.588997}
     - name: spine
-      parentName: animation_rest
-      position: {x: 0.00009915216, y: 0.00026440743, z: 0.03157652}
+      parentName: metarig
+      position: {x: 0.00009915219, y: 0.00026441144, z: 0.031576518}
       rotation: {x: 0.7175659, y: -0.0212887, z: 0.019418562, w: 0.6958943}
       scale: {x: 1, y: 1, z: 1.0000001}
     - name: spine.001
@@ -179,12 +154,12 @@ ModelImporter:
     - name: upper_arm.L
       parentName: spine.002
       position: {x: -0.004008795, y: 0.0033081616, z: 0.0001615224}
-      rotation: {x: -0.072010085, y: 0.07467431, z: 0.71090907, w: 0.6955909}
+      rotation: {x: -0.07200973, y: 0.07467431, z: 0.7109091, w: 0.6955909}
       scale: {x: 0.9999997, y: 0.9999999, z: 0.99999994}
     - name: forearm.L
       parentName: upper_arm.L
       position: {x: -2.9802322e-10, y: 0.0049306178, z: -2.9802322e-10}
-      rotation: {x: 0.026647585, y: -0.24700014, z: -0.0007386816, w: 0.9686488}
+      rotation: {x: 0.026647141, y: -0.2470002, z: -0.0007391002, w: 0.9686487}
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
     - name: hand.L
       parentName: forearm.L
@@ -194,12 +169,12 @@ ModelImporter:
     - name: upper_arm.R
       parentName: spine.002
       position: {x: 0.0038298804, y: 0.003410729, z: 0.00013221108}
-      rotation: {x: 0.15577662, y: 0.14685659, z: 0.7009292, w: -0.6803418}
+      rotation: {x: 0.15577619, y: 0.1468567, z: 0.7009293, w: -0.6803419}
       scale: {x: 0.9999977, y: 0.99999964, z: 0.9999998}
     - name: forearm.R
       parentName: upper_arm.R
       position: {x: -0.0000000020116566, y: 0.004930617, z: 4.4703483e-10}
-      rotation: {x: 0.030555546, y: 0.29930952, z: 0.0012282092, w: 0.9536659}
+      rotation: {x: 0.030555218, y: 0.29930943, z: 0.0012276247, w: 0.9536659}
       scale: {x: 1, y: 1, z: 1}
     - name: hand.R
       parentName: forearm.R
@@ -214,32 +189,32 @@ ModelImporter:
     - name: thigh.L
       parentName: spine
       position: {x: -0.00203378, y: -0.00071295816, z: 0.0002951419}
-      rotation: {x: 0.99717957, y: -0.060918495, z: -0.039213784, w: 0.019600188}
+      rotation: {x: 0.9971796, y: -0.06091849, z: -0.039213736, w: 0.019599948}
       scale: {x: 1, y: 1, z: 0.9999999}
     - name: shin.L
       parentName: thigh.L
       position: {x: 7.0780515e-10, y: 0.0057539856, z: 2.9802322e-10}
-      rotation: {x: 0.2905658, y: -0.055614956, z: -0.13399436, w: 0.9457928}
+      rotation: {x: 0.29056567, y: -0.055614993, z: -0.13399434, w: 0.9457929}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: shin.L.001
       parentName: shin.L
       position: {x: -2.0489097e-10, y: 0.0074557164, z: -1.4901161e-10}
-      rotation: {x: -0.8357046, y: -0.030432425, z: 0.24128653, w: 0.49239475}
+      rotation: {x: -0.83570457, y: -0.030432459, z: 0.24128656, w: 0.4923948}
       scale: {x: 1, y: 1.0000001, z: 1}
     - name: thigh.R
       parentName: spine
       position: {x: 0.0017483692, y: -0.0008092754, z: 0.00028148384}
-      rotation: {x: 0.9939479, y: 0.09001438, z: 0.06136763, w: 0.014105318}
+      rotation: {x: 0.993948, y: 0.09001418, z: 0.06136755, w: 0.014104869}
       scale: {x: 1.0000001, y: 1, z: 1.0000002}
     - name: shin.R
       parentName: thigh.R
       position: {x: -0.0000000024260953, y: 0.005854201, z: 5.2154064e-10}
-      rotation: {x: 0.2603207, y: 0.08793545, z: 0.18872961, w: 0.94280523}
+      rotation: {x: 0.2603209, y: 0.08793546, z: 0.18872945, w: 0.9428052}
       scale: {x: 1, y: 1, z: 1.0000001}
     - name: shin.R.001
       parentName: shin.R
       position: {x: -5.9604643e-10, y: 0.007289614, z: 7.45058e-10}
-      rotation: {x: -0.8095875, y: -0.0540981, z: -0.21595412, w: 0.543144}
+      rotation: {x: -0.80958796, y: -0.054097973, z: -0.2159541, w: 0.54314333}
       scale: {x: 0.9999999, y: 0.9999999, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
@@ -253,11 +228,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 70d7ae51b95029c4b971b7eac0ed9004,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
