@@ -4,7 +4,7 @@ public class TeleportTrap : MonoBehaviour
 {
     [Header("Настройки телепорта")]
     public Transform teleportTarget;  // Куда телепортируем
-    public float freezeDuration = 30f;
+    public float freezeDuration = 0f;
 
     private void OnTriggerEnter(Collider other)
     {
