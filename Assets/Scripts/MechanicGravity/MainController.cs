@@ -3,13 +3,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(GravityBody))]
 public class MainController : MonoBehaviour
 {
     [Header("Ground & Camera")]
@@ -30,11 +25,14 @@ public class MainController : MonoBehaviour
     [SerializeField] private Joystick _joystick;
     [SerializeField] private Button _jumpButton;
     [SerializeField] private Button _polarityButton;
+    [SerializeField] private Animator _animator;                // Animator с blend tree
+    [SerializeField] private string _speedParam = "Velocity";   // имя float‑параметра в Animator
+
+    // --------------------------------------------------
 
     private Rigidbody _rb;
     private GravityBody _gravityBody;
     private Vector3 _inputDir;
-    private float _turnSmoothVel;
     private float _currentSpeed;
     private int _jumpsRemaining;
     private bool _frozen;
@@ -43,12 +41,15 @@ public class MainController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _gravityBody = GetComponent<GravityBody>();
+
         _currentSpeed = _walkSpeed;
         _jumpsRemaining = _extraJumps;
 
+        // Настройки Rigidbody
         _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
 
+        // Кнопки UI
         if (_jumpButton != null)
             _jumpButton.onClick.AddListener(Jump);
         if (_polarityButton != null)
@@ -59,65 +60,57 @@ public class MainController : MonoBehaviour
     {
         if (_frozen) return;
 
-        // — Читаем ввод для движения
-        float h = (_joystick != null)
+        // 1) Ввод с джойстика или клавиатуры
+        float h = _joystick != null
             ? _joystick.Horizontal
             : Input.GetAxis("Horizontal");
-        float v = (_joystick != null)
+        float v = _joystick != null
             ? _joystick.Vertical
             : Input.GetAxis("Vertical");
         _inputDir = new Vector3(h, 0f, v).normalized;
 
-        // — Спринт
+        // 2) Рассчёт текущей скорости (с учётом спринта)
         bool sprinting = Input.GetKey(KeyCode.LeftShift);
         float targetSpeed = sprinting ? _sprintSpeed : _walkSpeed;
         _currentSpeed = Mathf.MoveTowards(
-            _currentSpeed, targetSpeed,
+            _currentSpeed,
+            targetSpeed,
             _acceleration * Time.deltaTime
         );
 
-        // — Обработка прыжка
+        // 3) Обновляем параметр blend tree в Animator
+        //    magnitude [0;1] показывает, насколько сильно наклонён джойстик
+        //    домножаем на отношение current/max, чтобы учитывать спринт
+        float speedNorm = _inputDir.magnitude * (_currentSpeed / _sprintSpeed);
+        _animator.SetFloat(_speedParam, speedNorm, 0.1f, Time.deltaTime);
+
+        // 4) Прыжок
         bool isGrounded = Physics.CheckSphere(
             _groundCheck.position,
             _groundCheckRadius,
             _groundMask
         );
-        if (isGrounded) _jumpsRemaining = _extraJumps;
+        if (isGrounded)
+            _jumpsRemaining = _extraJumps;
 
-        if (Input.GetKeyDown(KeyCode.Space)
-            && (isGrounded || _jumpsRemaining > 0))
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || _jumpsRemaining > 0))
         {
-            // берём активную область (если есть)
-            var area = _gravityBody.GetActiveGravityArea();
-            // направление гравитации: либо из области с учётом LocalPolarity, либо Physics.gravity
-            Vector3 gravDir = Physics.gravity.normalized;
-            if (area != null)
-                gravDir = area.GetGravityDirection(_gravityBody, area.LocalPolarity).normalized;
-
-            // прыжок
-            _rb.velocity = Vector3.zero;
-            _rb.AddForce(-gravDir * _jumpForce,
-                         ForceMode.Impulse);
-
-            if (!isGrounded) _jumpsRemaining--;
+            PerformJump();
+            if (!isGrounded)
+                _jumpsRemaining--;
         }
 
-        // — Смена полярности текущего поля
+        // 5) Смена полярности гравитации
         if (Input.GetKeyDown(KeyCode.E))
-        {
-            var area = _gravityBody.GetActiveGravityArea();
-            if (area != null)
-            {
-                area.LocalPolarity = !area.LocalPolarity;
-                Debug.Log($"GravityArea \"{area.name}\" polarity = {area.LocalPolarity}");
-            }
-        }
+            SwitchPolarity();
     }
 
-    
     void FixedUpdate()
     {
-        if (_frozen || _inputDir.magnitude < 0.1f) return;
+        if (_frozen) return;
+
+        // Если ввод слишком мал, не двигаем
+        if (_inputDir.magnitude < 0.1f) return;
 
         var area = _gravityBody.GetActiveGravityArea();
         if (area != null)
@@ -131,47 +124,36 @@ public class MainController : MonoBehaviour
         }
     }
 
-
-    // — Обычная гравитация — движение «по земле»
+    // Обычное движение по земле
     private void MoveInNormalGravity()
     {
-        // (1) вычисляем угол и targetRot
         float targetAngle = Mathf.Atan2(_inputDir.x, _inputDir.z) * Mathf.Rad2Deg
                             + _cameraTransform.eulerAngles.y;
         Quaternion targetRot = Quaternion.Euler(0f, targetAngle, 0f);
 
-        // (2) плавный переход
         float smoothFactor = 1f - Mathf.Exp(-Time.fixedDeltaTime / _turnSmoothTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, smoothFactor);
 
-        // (3) движение вперёд
         Vector3 moveDir = transform.forward;
         _rb.MovePosition(_rb.position + moveDir * (_currentSpeed * Time.fixedDeltaTime));
     }
 
-
-    // — Кастомная гравитация — движение по поверхности поля
+    // Движение по поверхности в произвольном поле гравитации
     private void MoveInCustomGravity(Vector3 gravDir)
     {
-        // (1) Считаем желаемое направление worldDir, как у вас было...
         Vector3 camF = Vector3.ProjectOnPlane(_cameraTransform.forward, gravDir).normalized;
         Vector3 camR = Vector3.ProjectOnPlane(_cameraTransform.right, gravDir).normalized;
         Vector3 worldDir = (camR * _inputDir.x + camF * _inputDir.z);
         if (worldDir.sqrMagnitude < 0.01f) return;
 
-        // (2) Определяем targetRot
         Quaternion targetRot = Quaternion.LookRotation(worldDir.normalized, -gravDir);
-
-        // (3) Плавный поворот
         float smoothFactor = 1f - Mathf.Exp(-Time.fixedDeltaTime / _turnSmoothTime);
         _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, targetRot, smoothFactor));
 
-        // (4) Движение по поверхности (SweepTest + slide), как у вас уже настроено...
         Vector3 delta = (_rb.rotation * Vector3.forward) * (_currentSpeed * Time.fixedDeltaTime);
         delta = Vector3.ProjectOnPlane(delta, gravDir);
 
-        RaycastHit hit;
-        if (_rb.SweepTest(delta.normalized, out hit, delta.magnitude))
+        if (_rb.SweepTest(delta.normalized, out RaycastHit hit, delta.magnitude))
         {
             Vector3 slide = Vector3.ProjectOnPlane(delta, hit.normal);
             slide = Vector3.ProjectOnPlane(slide, gravDir);
@@ -183,40 +165,55 @@ public class MainController : MonoBehaviour
         }
     }
 
+    // Универсальный прыжок, учитывающий текущее поле гравитации
+    private void PerformJump()
+    {
+        var area = _gravityBody.GetActiveGravityArea();
+        Vector3 gravDir = Physics.gravity.normalized;
+        if (area != null)
+            gravDir = area.GetGravityDirection(_gravityBody, area.LocalPolarity).normalized;
+
+        _rb.velocity = Vector3.zero;
+        _rb.AddForce(-gravDir * _jumpForce, ForceMode.Impulse);
+    }
+
     private void Jump()
     {
-        if (_frozen) return;
-        bool grounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
-        if (!grounded) return;
-
-        Vector3 jumpDir = _rb.useGravity ? Vector3.up : -_gravityBody.GravityDirection.normalized;
-        _rb.AddForce(jumpDir * _jumpForce, ForceMode.Impulse);
+        // для UI‑кнопки
+        bool grounded = Physics.CheckSphere(
+            _groundCheck.position,
+            _groundCheckRadius,
+            _groundMask
+        );
+        if (grounded)
+            PerformJump();
     }
 
     private void SwitchPolarity()
     {
-        if (_frozen) return;
         var area = _gravityBody.GetActiveGravityArea();
         if (area != null)
         {
             area.LocalPolarity = !area.LocalPolarity;
-            Debug.Log($"Polarity switched on: {area.gameObject.name}");
+            Debug.Log($"Polarity switched on: {area.gameObject.name} -> {area.LocalPolarity}");
         }
     }
 
-    // — Для TeleportTrap и прочих — «заморозка» движения на время
+    // Возможность «заморозить» движение
     public void FreezeMovement(float duration)
     {
-        if (!_frozen) StartCoroutine(FreezeRoutine(duration));
+        if (!_frozen)
+            StartCoroutine(FreezeRoutine(duration));
     }
 
-    private IEnumerator FreezeRoutine(float d)
+    private IEnumerator FreezeRoutine(float duration)
     {
         _frozen = true;
-        yield return new WaitForSeconds(d);
+        yield return new WaitForSeconds(duration);
         _frozen = false;
     }
 }
+
 
 
 
