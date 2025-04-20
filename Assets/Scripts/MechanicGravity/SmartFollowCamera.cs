@@ -1,123 +1,60 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Camera))]
 public class SmartFollowCamera : MonoBehaviour
 {
-    [Header("Follow Settings")]
-    public Transform target;
-    public Vector3 localOffset = new Vector3(0, 3, -6);
-    public float smoothSpeed = 10f;
-    public float collisionBuffer = 0.2f;
-    public LayerMask obstacleLayers;
+    [Header("Target and Offsets")]
+    public Transform target;             // Ссылка на игрока
+    public Vector3 offset = new Vector3(0, 2, -5);  // Локальный оффсет относительно игрока (x, y, z)
 
-    [Header("Swipe‑Look Settings")]
-    public float yawSpeed = 0.2f;
-    public float pitchSpeed = 0.2f;
-    public float minPitch = -20f;
-    public float maxPitch = 60f;
+    [Header("Smoothness")]
+    [Range(0.01f, 1f)]
+    public float positionSmoothTime = 0.15f;
+    [Range(0.01f, 1f)]
+    public float rotationSmoothTime = 0.1f;
 
-    private bool isDragging;
-    private Vector2 lastTouchPos;
-    private float yaw, pitch;
-    private Vector3 currentVelocity;
-
-    void Start()
-    {
-        if (target == null) { enabled = false; return; }
-        Vector3 e = transform.eulerAngles;
-        yaw = e.y;
-        pitch = e.x;
-    }
-
-    void Update()
-    {
-        HandleSwipeInput();
-    }
+    private Vector3 currentVelocity;     // Для SmoothDamp позиции
+    private Vector3 rotationVelocity;    // Для SmoothDamp углов (в градусах)
 
     void LateUpdate()
     {
         if (target == null) return;
 
-        if (isDragging)
-        {
-            // ORBIT MODE
-            Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
-            Vector3 baseOff = Vector3.up * localOffset.y;
-            Vector3 horOff = rot * new Vector3(localOffset.x, 0f, localOffset.z);
-            Vector3 desiredPos = target.position + baseOff + horOff;
+        // 1. Получаем вектор гравитации в точке игрока (можно заменить на свой метод)
+        Vector3 gravity = Physics.gravity.normalized;
 
-            if (Physics.Linecast(target.position + baseOff, desiredPos, out RaycastHit hit, obstacleLayers))
-                desiredPos = hit.point + hit.normal * collisionBuffer;
+        // 2. Вычисляем мировую точку, в которой должна стоять камера:
+        // сначала поворачиваем локальный offset по ориентации игрока:
+        Quaternion targetRotation = Quaternion.LookRotation(target.forward, -gravity);
+        Vector3 desiredPosition = target.position + targetRotation * offset;
 
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, 1f / smoothSpeed);
-            Quaternion lookRot = Quaternion.LookRotation((target.position + baseOff) - transform.position, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * smoothSpeed);
-        }
-        else
-        {
-            // FOLLOW MODE (твоя старая логика)
-            Vector3 offset = target.right * localOffset.x + target.up * localOffset.y + target.forward * localOffset.z;
-            Vector3 desiredPos = target.position + offset;
-            if (Physics.Linecast(target.position, desiredPos, out RaycastHit hit, obstacleLayers))
-                desiredPos = hit.point + hit.normal * collisionBuffer;
+        // 3. Плавно перемещаем камеру:
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            desiredPosition,
+            ref currentVelocity,
+            positionSmoothTime
+        );
 
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, 1f / smoothSpeed);
-            Vector3 lookDir = target.position - transform.position;
-            if (lookDir.sqrMagnitude > 0.01f)
-            {
-                Quaternion tRot = Quaternion.LookRotation(lookDir, target.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, tRot, Time.deltaTime * smoothSpeed);
-            }
-        }
-    }
+        // 4. Плавно поворачиваем камеру так, чтобы она смотрела на игрока «правильным верхом»:
+        Quaternion desiredRotation = Quaternion.LookRotation(
+            target.position - transform.position,
+            -gravity
+        );
 
-    private void HandleSwipeInput()
-    {
-        // Мобильный
-        if (Input.touchCount == 1)
-        {
-            Touch t = Input.GetTouch(0);
-            if (EventSystem.current.IsPointerOverGameObject(t.fingerId)) return;
+        // Интерполируем через углы Эйлера, чтобы не получить «мимолётные» кривые кватернионы:
+        Vector3 smoothedEuler = Vector3.SmoothDamp(
+            transform.eulerAngles,
+            desiredRotation.eulerAngles,
+            ref rotationVelocity,
+            rotationSmoothTime
+        );
+        transform.rotation = Quaternion.Euler(smoothedEuler);
 
-            if (t.phase == TouchPhase.Began)
-            {
-                isDragging = true;
-                lastTouchPos = t.position;
-            }
-            else if (t.phase == TouchPhase.Moved && isDragging)
-            {
-                Vector2 delta = t.position - lastTouchPos;
-                lastTouchPos = t.position;
-                yaw += delta.x * yawSpeed;
-                pitch -= delta.y * pitchSpeed;
-                pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-            }
-            else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
-            {
-                isDragging = false;
-            }
-        }
-
-        // Редактор (мышь)
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-            isDragging = true;
-            lastTouchPos = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            isDragging = false;
-        }
-        if (isDragging && Input.GetMouseButton(0))
-        {
-            Vector2 delta = (Vector2)Input.mousePosition - lastTouchPos;
-            lastTouchPos = Input.mousePosition;
-            yaw += delta.x * yawSpeed;
-            pitch -= delta.y * pitchSpeed;
-            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-        }
-#endif
+        // 5. (Опционально) Обработка коллизий: 
+        //    Raycast от игрока к камере, если попали в стену/объект — укоротить дистанцию.
+        //    var dir = transform.position - target.position;
+        //    if (Physics.Raycast(target.position, dir.normalized, out RaycastHit hit, dir.magnitude))
+        //        transform.position = hit.point + hit.normal * 0.3f;
     }
 }

@@ -92,3 +92,104 @@ public class SwipeLook : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(lookDir, Vector3.up);
     }
 }
+
+
+/*
+ * 
+ * 
+
+
+// CameraSwipeController.cs
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+[RequireComponent(typeof(Camera))]
+public class CameraSwipeController : MonoBehaviour
+{
+    [Header("Target and Orbit")]
+    public Transform target;
+    public float distance = 5f;
+    public Vector2 pitchLimits = new Vector2(-30f, 60f);
+
+    [Header("Swipe Settings")]
+    public float rotationSpeed = 0.2f;
+
+    private float yaw;
+    private float pitch;
+    private Vector2 lastPointerPos;
+    private bool isDragging = false;
+
+    void Start()
+    {
+        Vector3 angles = transform.eulerAngles;
+        yaw = angles.y;
+        pitch = angles.x;
+        // initialize position
+        UpdatePosition();
+    }
+
+    void Update()
+    {
+        // Handle touch or mouse      
+        #if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUI(Input.mousePosition))
+        {
+            lastPointerPos = Input.mousePosition;
+            isDragging = true;
+        }
+        else if (Input.GetMouseButton(0) && isDragging)
+        {
+            Vector2 curr = Input.mousePosition;
+            Vector2 delta = curr - lastPointerPos;
+            lastPointerPos = curr;
+            RotateCamera(delta);
+        }
+        else if (Input.GetMouseButtonUp(0))
+            isDragging = false;
+        #else
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began && !IsPointerOverUI(touch.position))
+            {
+                lastPointerPos = touch.position;
+                isDragging = true;
+            }
+            else if (touch.phase == TouchPhase.Moved && isDragging)
+            {
+                Vector2 delta = touch.position - lastPointerPos;
+                lastPointerPos = touch.position;
+                RotateCamera(delta);
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                isDragging = false;
+        }
+        #endif
+    }
+
+    private void RotateCamera(Vector2 delta)
+    {
+        yaw += delta.x * rotationSpeed;
+        pitch -= delta.y * rotationSpeed;
+        pitch = Mathf.Clamp(pitch, pitchLimits.x, pitchLimits.y);
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
+        Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
+        Vector3 pos = target.position - rot * Vector3.forward * distance;
+        transform.rotation = rot;
+        transform.position = pos;
+    }
+
+    private bool IsPointerOverUI(Vector2 screenPos)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        { position = screenPos };
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
+    }
+}*/
