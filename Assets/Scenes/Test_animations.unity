@@ -3270,8 +3270,8 @@ MonoBehaviour:
   _speedParam: Speed
   _isWalkingParam: isWalking
   _isSprintingParam: isSprinting
-  _jumpTriggerParam: isJumping
   _isInAirParam: isInAir
+  _jumpTriggerParam: isJumping
 --- !u!114 &1838413715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4492,11 +4492,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 642567941}
   - {fileID: 306670347}
+  - {fileID: 827407800}
+  - {fileID: 1383596083}
+  - {fileID: 1951602867}
   - {fileID: 7256828057927799270}
   - {fileID: 1647388211}
   - {fileID: 2109395119}
-  - {fileID: 1383596083}
-  - {fileID: 1951602867}
   - {fileID: 795290764}
   - {fileID: 468853634}
-  - {fileID: 827407800}
