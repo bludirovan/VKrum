@@ -169,15 +169,20 @@ MonoBehaviour:
   _cameraTransform: {fileID: 1383596083}
   _walkSpeed: 6
   _sprintSpeed: 12
-  _turnSmoothTime: 0.1
   _acceleration: 10
   _jumpForce: 50
   _extraJumps: 1
+  _maxTurnSpeed: 180
+  _runThreshold: 8
   _joystick: {fileID: 1915288045}
   _jumpButton: {fileID: 1380272170}
   _polarityButton: {fileID: 1669139946}
   _animator: {fileID: 0}
   _speedParam: Velocity
+  _isWalkingParam: isWalking
+  _isSprintingParam: isSprinting
+  _isInAirParam: isInAir
+  _jumpTriggerParam: Jump
 --- !u!114 &2282081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,8 +431,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &17633170
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -496,8 +503,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &39655943
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -649,8 +658,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &49625285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -719,8 +730,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &56594607
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -789,8 +802,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &85972669
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -887,8 +902,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &95270876
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -957,8 +974,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &95740144
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1145,8 +1164,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &100422739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1215,8 +1236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &103210877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1292,7 +1315,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 50
-  m_Range: 16.075457
+  m_Range: 43.583435
   m_SpotAngle: 58.317844
   m_InnerSpotAngle: 41.27462
   m_CookieSize: 10
@@ -1350,7 +1373,7 @@ Transform:
   m_GameObject: {fileID: 106345561}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 17.48, y: 31.454, z: -105.647}
+  m_LocalPosition: {x: 18.857845, y: 31.454, z: -102.46257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1539,10 +1562,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &132470051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,8 +1613,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &132470054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1660,8 +1685,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &140254836
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1884,8 +1911,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &150725390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1907,6 +1936,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6137061, y: 1.107685, z: 5.0614305}
   m_Center: {x: -0.040877346, y: 0.05384238, z: -0.4803722}
+--- !u!1 &155070602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 155070605}
+  - component: {fileID: 155070604}
+  - component: {fileID: 155070603}
+  m_Layer: 0
+  m_Name: Point Light (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &155070603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155070602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &155070604
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155070602}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.8865337, b: 0.33773577, a: 1}
+  m_Intensity: 3
+  m_Range: 2.7271998
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.027271997
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &155070605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155070602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 33.859, y: 28.123, z: -143.691}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &158589806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,8 +2101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &158589809
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2024,8 +2173,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &162549358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2094,8 +2245,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &167768389
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2198,8 +2351,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &175387699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2499,8 +2654,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &212763853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2714,8 +2871,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &232389944
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2784,8 +2943,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &238261368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2854,8 +3015,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &239801568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2972,8 +3135,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 1
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &249883809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4509851281560526617, guid: fb078040c25314add990d8ab1b4bfebc,
@@ -3015,8 +3180,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &249911038
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,8 +3231,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &249911041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3134,8 +3303,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &261881780
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3204,8 +3375,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &268029083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3274,8 +3447,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &276086664
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3317,10 +3492,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &284050076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7408871180903974320, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -3401,8 +3576,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &286268124
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3444,10 +3621,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &294445842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3578,8 +3755,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &297472115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3648,8 +3827,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &299994421
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3786,8 +3967,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &312094391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4051,8 +4234,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &343051005
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4121,8 +4306,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &345551233
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4144,6 +4331,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.96404546, y: 0.6326774, z: 0.5350447}
   m_Center: {x: -0.034763955, y: 0.18366133, z: 0.18096983}
+--- !u!1 &347880729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 347880732}
+  - component: {fileID: 347880731}
+  - component: {fileID: 347880730}
+  m_Layer: 0
+  m_Name: Point Light (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &347880730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347880729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &347880731
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347880729}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 4.6086283
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &347880732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347880729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 17.48, y: 34.35, z: -151.77}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &348178013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6777075472190496807, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -4261,8 +4566,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &363790255
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4325,10 +4632,128 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
+--- !u!1 &384314412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 384314415}
+  - component: {fileID: 384314414}
+  - component: {fileID: 384314413}
+  m_Layer: 0
+  m_Name: Point Light (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &384314413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384314412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &384314414
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384314412}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.98187673, b: 0.7882353, a: 1}
+  m_Intensity: 3
+  m_Range: 1.7223626
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &384314415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384314412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 13.15, y: 34.714, z: -118.884}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &395946364
 GameObject:
   m_ObjectHideFlags: 0
@@ -4712,8 +5137,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &421758920
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4835,8 +5262,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &426799324
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4911,8 +5340,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &444590020
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4954,10 +5385,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &477203168 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3539972024598678253, guid: 6fa6132c6432d0e40b9ca5b7abc806d5,
@@ -5156,8 +5587,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &511921889
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5457,8 +5890,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &558256673
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5527,8 +5962,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &562019008
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5597,8 +6034,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &563703489
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6241,8 +6680,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &616560796
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6364,8 +6805,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &640762547
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6540,8 +6983,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &653176660
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6610,8 +7055,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &659080232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6680,8 +7127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &659632370
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6829,6 +7278,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9135355759520133221, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -9088002970099068633, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -6969,6 +7423,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -7648005042189105273, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 65.47
+      objectReference: {fileID: 0}
+    - target: {fileID: -7648005042189105273, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.996
+      objectReference: {fileID: 0}
+    - target: {fileID: -7596303453261756722, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -7581931183084850159, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7059,6 +7528,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -6544943180903714836, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -6406174526317499147, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7069,6 +7543,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -6191258355069517081, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -6187241688617510283, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7079,6 +7558,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -5978140474263104164, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -5836386227210675776, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7098,6 +7582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5171047716010993863, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.08
       objectReference: {fileID: 0}
     - target: {fileID: -5114920504987213408, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
@@ -7144,6 +7633,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -4892601848018016675, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -4724614012736414554, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7154,15 +7648,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4350227413220341355, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -4255707165282075216, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198726519973288358, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
+    - target: {fileID: -4151747536336428427, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -4151747536336428427, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
-      propertyPath: m_Layer
-      value: 3
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4007543208646099642, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
@@ -7174,6 +7683,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -3803935405408178184, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -3730269324106138159, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7189,6 +7703,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10.012
       objectReference: {fileID: 0}
+    - target: {fileID: -3514359478866416479, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -3148245283643249529, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7222,7 +7741,7 @@ PrefabInstance:
     - target: {fileID: -2994437005018385391, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2751039997476287022, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
@@ -7269,6 +7788,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -2130869602290612328, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: -1984185035029303543, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -7374,6 +7898,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 399435320519521665, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: 537072362108277628, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7389,6 +7918,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 735427004498410981, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47f7cedf4da515b4480ca8f40842461e, type: 2}
     - target: {fileID: 786201585135033286, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7424,6 +7958,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1167954622823157128, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
+    - target: {fileID: 1167954622823157128, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: 1205989011842912019, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7459,6 +8003,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 65.64
       objectReference: {fileID: 0}
+    - target: {fileID: 2196134181319842716, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 202d7672b81dc7b489938791138dc95c, type: 2}
     - target: {fileID: 2267794170679973322, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_IsActive
@@ -7469,6 +8018,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2424334987699618169, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee5541aa404431247b23d53ea0ee6e5f, type: 2}
     - target: {fileID: 2489268937771076435, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -7789,6 +8343,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5.063
       objectReference: {fileID: 0}
+    - target: {fileID: 5743548179068052348, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 34.508
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743548179068052348, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.378
+      objectReference: {fileID: 0}
     - target: {fileID: 5814416586084762768, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7823,6 +8387,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -35.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457267406156455084, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 39.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457267406156455084, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.96
       objectReference: {fileID: 0}
     - target: {fileID: 6564323595324877507, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
@@ -7929,6 +8503,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8588566053748667823, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee5541aa404431247b23d53ea0ee6e5f, type: 2}
     - target: {fileID: 8600648371681153227, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
       propertyPath: m_Layer
@@ -7943,6 +8522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789203080290912538, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8899205825715034405, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
         type: 3}
@@ -8986,8 +9570,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &671373698
 GameObject:
   m_ObjectHideFlags: 0
@@ -9056,8 +9642,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &671386661 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4989920514210757444, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -9230,6 +9818,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30.881998, y: 20.620653, z: 1.2449877}
   m_Center: {x: 1.0745115, y: 1.0470121, z: 0.04140095}
+--- !u!1 &683736615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 683736618}
+  - component: {fileID: 683736617}
+  - component: {fileID: 683736616}
+  m_Layer: 0
+  m_Name: Point Light (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &683736616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683736615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &683736617
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683736615}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.8865337, b: 0.33773577, a: 1}
+  m_Intensity: 3
+  m_Range: 2.7271998
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.027271997
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &683736618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683736615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 33.859, y: 29.611, z: -142.843}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &685993971
 GameObject:
   m_ObjectHideFlags: 0
@@ -9277,8 +9983,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &685993974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9456,8 +10164,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &695813831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9526,8 +10236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &704533517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9596,8 +10308,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &713732485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9699,10 +10413,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &736812835
 GameObject:
   m_ObjectHideFlags: 0
@@ -9750,8 +10464,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &736812838
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9773,6 +10489,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1066943, y: 0.6326774, z: 1}
   m_Center: {x: -0.0057958877, y: 0.18366133, z: 2.466055e-16}
+--- !u!1 &750422722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 750422725}
+  - component: {fileID: 750422724}
+  - component: {fileID: 750422723}
+  m_Layer: 0
+  m_Name: Point Light (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &750422723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750422722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &750422724
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750422722}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 5
+  m_Range: 1.9877126
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &750422725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750422722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 37.449, y: 33.803, z: -130.036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &758234168 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2926101630167938326, guid: fb078040c25314add990d8ab1b4bfebc,
@@ -9793,10 +10627,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!4 &773003880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -10029,8 +10863,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &837481692
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10052,6 +10888,89 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.6206074, y: 1.0309294, z: 3.1763344}
   m_Center: {x: 0.13100387, y: 1.4771085, z: 0.735055}
+--- !u!1 &838463832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838463835}
+  - component: {fileID: 838463834}
+  - component: {fileID: 838463833}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &838463833
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838463832}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &838463834
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838463832}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &838463835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838463832}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.16, y: 16.643, z: -92.296}
+  m_LocalScale: {x: 9.932176, y: 1, z: 0.4842879}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &839163365
 GameObject:
   m_ObjectHideFlags: 0
@@ -10099,8 +11018,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &839163368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10169,8 +11090,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &867287556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10239,8 +11162,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &870113767
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10362,8 +11287,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &878758098
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10405,10 +11332,128 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
+--- !u!1 &884089445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 884089448}
+  - component: {fileID: 884089447}
+  - component: {fileID: 884089446}
+  m_Layer: 0
+  m_Name: Point Light (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &884089446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884089445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &884089447
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884089445}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 50
+  m_Range: 43.583435
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &884089448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884089445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 44.491, y: 31.771, z: -110.514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &889223891
 GameObject:
   m_ObjectHideFlags: 0
@@ -10456,8 +11501,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &889223894
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10526,8 +11573,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &890297268
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10706,8 +11755,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &894397421
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10776,8 +11827,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &904331982
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10799,6 +11852,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0410142, y: 1.4143258, z: 1.4928781}
   m_Center: {x: 0.020506555, y: -0.20716305, z: 0.124051504}
+--- !u!1 &912577389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 912577392}
+  - component: {fileID: 912577391}
+  - component: {fileID: 912577390}
+  m_Layer: 0
+  m_Name: Point Light (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &912577390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912577389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &912577391
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912577389}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.9792103, b: 0.7754717, a: 1}
+  m_Intensity: 3
+  m_Range: 5.002166
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &912577392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912577389}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 47.609, y: 23.913, z: -131.467}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &919022093
 GameObject:
   m_ObjectHideFlags: 0
@@ -10846,8 +12017,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &919022096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10916,8 +12089,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &919812497
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11002,10 +12177,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &961127449
 GameObject:
   m_ObjectHideFlags: 3
@@ -11132,8 +12307,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &961854166
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11282,8 +12459,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1009764313
 GameObject:
   m_ObjectHideFlags: 0
@@ -11331,8 +12510,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1009764316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11732,8 +12913,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1048512416
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11802,8 +12985,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1049077825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11899,8 +13084,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1065400330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12174,8 +13361,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1102444220
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12244,8 +13433,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1128197935
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12314,8 +13505,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1137472269
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12384,8 +13577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1138418468
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12507,8 +13702,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1160044778
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12660,8 +13857,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1175411450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12730,8 +13929,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1179003124
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12800,8 +14001,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1183335852
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12870,8 +14073,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1184041965
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13058,8 +14263,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1198994534
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13423,8 +14630,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1229488285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13493,8 +14702,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1242911480
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13522,6 +14733,124 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 662351307}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1246815227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1246815230}
+  - component: {fileID: 1246815229}
+  - component: {fileID: 1246815228}
+  m_Layer: 0
+  m_Name: Point Light (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1246815228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246815227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &1246815229
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246815227}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.8865337, b: 0.33773577, a: 1}
+  m_Intensity: 50
+  m_Range: 1.4098485
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.07271563
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1246815230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246815227}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 33.859, y: 29.611, z: -144.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1252358987
 GameObject:
   m_ObjectHideFlags: 0
@@ -13569,8 +14898,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1252358990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13639,8 +14970,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1253850383
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13709,8 +15042,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1258368177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13779,8 +15114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1287076105
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13849,8 +15186,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1287186103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14002,8 +15341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1302015035
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14072,8 +15413,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1310563586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14142,8 +15485,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1311392905
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14165,6 +15510,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0410142, y: 1.4143258, z: 1.4928781}
   m_Center: {x: 0.020506555, y: -0.20716305, z: 0.124051504}
+--- !u!1 &1319506003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1319506006}
+  - component: {fileID: 1319506005}
+  - component: {fileID: 1319506004}
+  m_Layer: 0
+  m_Name: Point Light (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1319506004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319506003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &1319506005
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319506003}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 4.6086283
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1319506006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319506003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 24.263, y: 34.35, z: -151.77}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1319506645
 GameObject:
   m_ObjectHideFlags: 0
@@ -14212,8 +15675,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1319506648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14235,6 +15700,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.990102, y: 1, z: 0.5353407}
   m_Center: {x: 0.045509808, y: 0, z: 0.23232935}
+--- !u!1 &1324397561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324397564}
+  - component: {fileID: 1324397563}
+  - component: {fileID: 1324397562}
+  m_Layer: 0
+  m_Name: Point Light (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1324397562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324397561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &1324397563
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324397561}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.9792103, b: 0.7754717, a: 1}
+  m_Intensity: 3
+  m_Range: 5.002166
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1324397564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324397561}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 49.156, y: 19.76, z: -97.061}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1324752156
 GameObject:
   m_ObjectHideFlags: 0
@@ -14343,8 +15926,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1349509428
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14413,8 +15998,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1356225960
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14483,8 +16070,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1364739398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14915,8 +16504,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383596078}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14453515, y: 0.6347825, z: -0.12247712, w: 0.7491063}
-  m_LocalPosition: {x: 11.329675, y: 22.060024, z: -96.012665}
+  m_LocalRotation: {x: 0.21176514, y: 0.591079, z: -0.16453956, w: 0.76072854}
+  m_LocalPosition: {x: 11.329675, y: 22.060028, z: -98.63248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14969,8 +16558,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1399591232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15193,8 +16784,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1407737811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15284,8 +16877,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1422386363
 GameObject:
   m_ObjectHideFlags: 0
@@ -15333,8 +16928,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1422386366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15403,8 +17000,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1428558102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15473,8 +17072,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 1
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1437963319
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15543,8 +17144,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1439168945
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15668,8 +17271,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1447251831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15771,8 +17376,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1469132754
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15847,10 +17454,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1472827288
 GameObject:
   m_ObjectHideFlags: 0
@@ -15898,8 +17505,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1472827291
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15968,8 +17577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1491077843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16099,8 +17710,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1502930346
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16249,8 +17862,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1517260041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16319,8 +17934,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1517332997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16389,8 +18006,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1535583427
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16459,8 +18078,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1537441060
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16509,7 +18130,7 @@ Transform:
   m_GameObject: {fileID: 1538505042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 145.59, y: 169.86, z: 30.2}
+  m_LocalPosition: {x: 121.3, y: 169.86, z: 30.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16798,8 +18419,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1551413117
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17012,10 +18635,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1596523898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7581931183084850159, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -17122,8 +18745,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1625218677
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17145,6 +18770,124 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9172924, y: 0.60642445, z: 0.5515568}
   m_Center: {x: 0.057647936, y: -0.19678788, z: -0.57586443}
+--- !u!1 &1631120277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631120280}
+  - component: {fileID: 1631120279}
+  - component: {fileID: 1631120278}
+  m_Layer: 0
+  m_Name: Point Light (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1631120278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631120277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &1631120279
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631120277}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 10
+  m_Range: 8.786167
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1631120280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631120277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 26.526, y: 32.242, z: -135.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1647388210
 GameObject:
   m_ObjectHideFlags: 3
@@ -17319,8 +19062,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1663246805
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17593,8 +19338,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1684318614
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17663,8 +19410,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1687108671
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18225,8 +19974,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1721732522
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18408,8 +20159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1734311901
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18510,6 +20263,124 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737949854}
   m_CullTransparentMesh: 1
+--- !u!1 &1748143601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1748143604}
+  - component: {fileID: 1748143603}
+  - component: {fileID: 1748143602}
+  m_Layer: 0
+  m_Name: Point Light (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1748143602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748143601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &1748143603
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748143601}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.9792103, b: 0.7754717, a: 1}
+  m_Intensity: 5
+  m_Range: 4.6086283
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1748143604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748143601}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 12.287, y: 32.982, z: -137.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &1758828753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2489268937771076435, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -18563,8 +20434,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1762126768
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18633,8 +20506,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1768271487
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18703,8 +20578,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1777758987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18789,15 +20666,20 @@ MonoBehaviour:
   _cameraTransform: {fileID: 0}
   _walkSpeed: 6
   _sprintSpeed: 12
-  _turnSmoothTime: 0.1
   _acceleration: 10
   _jumpForce: 50
   _extraJumps: 1
+  _maxTurnSpeed: 180
+  _runThreshold: 8
   _joystick: {fileID: 0}
   _jumpButton: {fileID: 0}
   _polarityButton: {fileID: 0}
   _animator: {fileID: 0}
   _speedParam: Velocity
+  _isWalkingParam: isWalking
+  _isSprintingParam: isSprinting
+  _isInAirParam: isInAir
+  _jumpTriggerParam: Jump
 --- !u!114 &1793467288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18951,10 +20833,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1829920882 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3140730408706283833, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -19023,8 +20905,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1838374522 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 211048244705420473, guid: fa7bcec6e3f87604bb5b9f207be7bee9,
@@ -19370,8 +21254,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 1
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &1889658934
 GameObject:
   m_ObjectHideFlags: 0
@@ -19419,8 +21305,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1889658937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19516,8 +21404,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1907840779
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19804,8 +21694,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1916099327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19874,8 +21766,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1919279382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19944,8 +21838,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 1
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1937822699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20093,8 +21989,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951602864}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14453515, y: 0.6347825, z: -0.12247712, w: 0.7491063}
-  m_LocalPosition: {x: 5.786975, y: 22.06, z: -96.01266}
+  m_LocalRotation: {x: 0.21176514, y: 0.591079, z: -0.16453956, w: 0.76072854}
+  m_LocalPosition: {x: 4.246974, y: 22.06, z: -98.63266}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20148,8 +22044,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1955674935
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20224,8 +22122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &1974890828
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20330,6 +22230,124 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1984642358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1984642361}
+  - component: {fileID: 1984642360}
+  - component: {fileID: 1984642359}
+  m_Layer: 0
+  m_Name: Point Light (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1984642359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984642358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &1984642360
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984642358}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.8865337, b: 0.33773577, a: 1}
+  m_Intensity: 50
+  m_Range: 11.6562395
+  m_SpotAngle: 58.317844
+  m_InnerSpotAngle: 41.27462
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1984642361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984642358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 30.4, y: 29.611, z: -142.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1999935034
 GameObject:
   m_ObjectHideFlags: 0
@@ -20487,8 +22505,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2001712803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20557,8 +22577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2009841225
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20591,7 +22613,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 70d7ae51b95029c4b971b7eac0ed9004,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.11
+      value: 14.57
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70d7ae51b95029c4b971b7eac0ed9004,
         type: 3}
@@ -20601,7 +22623,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 70d7ae51b95029c4b971b7eac0ed9004,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -95.32
+      value: -97.94
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70d7ae51b95029c4b971b7eac0ed9004,
         type: 3}
@@ -20729,8 +22751,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2022212510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20799,8 +22823,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2024202875
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20869,8 +22895,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2025448381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21028,8 +23056,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2034147488
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21098,8 +23128,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2047673717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21168,8 +23200,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2055049751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21238,8 +23272,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2056395786
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21361,8 +23397,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2057863756
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21431,8 +23469,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  positiveColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!65 &2058180180
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21566,7 +23606,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -21609,7 +23649,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 7788
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -21624,13 +23664,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109395116}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: -0.16891871, y: -0.11037594, z: 0.63225496, w: 0.7480223}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: -6.496, y: -22.406, z: 81.699}
 --- !u!1 &2113596930
 GameObject:
   m_ObjectHideFlags: 0
@@ -21684,13 +23724,13 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 3
   m_Range: 12.076066
   m_SpotAngle: 58.317844
   m_InnerSpotAngle: 41.27462
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -21884,10 +23924,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 0
   _localPolarity: 1
-  gizmoRadius: 5
-  gizmoLines: 32
-  positiveColor: {r: 0, g: 0.5, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  targetRenderer: {fileID: 0}
+  positiveMaterial: {fileID: 0}
+  negativeMaterial: {fileID: 0}
+  specificMaterial: {fileID: 0}
 --- !u!1 &2145933904
 GameObject:
   m_ObjectHideFlags: 0
@@ -22579,6 +24619,20 @@ SceneRoots:
   - {fileID: 98739733}
   - {fileID: 395946367}
   - {fileID: 610153941}
+  - {fileID: 384314415}
+  - {fileID: 1748143604}
+  - {fileID: 1324397564}
+  - {fileID: 912577392}
+  - {fileID: 1319506006}
+  - {fileID: 347880732}
+  - {fileID: 1631120280}
+  - {fileID: 750422725}
+  - {fileID: 155070605}
+  - {fileID: 683736618}
+  - {fileID: 1246815230}
+  - {fileID: 1984642361}
   - {fileID: 1070745691}
   - {fileID: 1191885932}
   - {fileID: 106345564}
+  - {fileID: 884089448}
+  - {fileID: 838463835}
