@@ -28,6 +28,8 @@ public class MainController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Joystick _joystick;
+    [SerializeField] private Button _jumpButton;
+    [SerializeField] private Button _polarityButton;
 
     private Rigidbody _rb;
     private GravityBody _gravityBody;
@@ -47,6 +49,10 @@ public class MainController : MonoBehaviour
         _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
 
+        if (_jumpButton != null)
+            _jumpButton.onClick.AddListener(Jump);
+        if (_polarityButton != null)
+            _polarityButton.onClick.AddListener(SwitchPolarity);
     }
 
     void Update()
@@ -108,6 +114,7 @@ public class MainController : MonoBehaviour
         }
     }
 
+    
     void FixedUpdate()
     {
         if (_frozen || _inputDir.magnitude < 0.1f) return;
@@ -123,6 +130,7 @@ public class MainController : MonoBehaviour
             MoveInNormalGravity();
         }
     }
+
 
     // — Обычная гравитация — движение «по земле»
     private void MoveInNormalGravity()
@@ -175,7 +183,26 @@ public class MainController : MonoBehaviour
         }
     }
 
+    private void Jump()
+    {
+        if (_frozen) return;
+        bool grounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
+        if (!grounded) return;
 
+        Vector3 jumpDir = _rb.useGravity ? Vector3.up : -_gravityBody.GravityDirection.normalized;
+        _rb.AddForce(jumpDir * _jumpForce, ForceMode.Impulse);
+    }
+
+    private void SwitchPolarity()
+    {
+        if (_frozen) return;
+        var area = _gravityBody.GetActiveGravityArea();
+        if (area != null)
+        {
+            area.LocalPolarity = !area.LocalPolarity;
+            Debug.Log($"Polarity switched on: {area.gameObject.name}");
+        }
+    }
 
     // — Для TeleportTrap и прочих — «заморозка» движения на время
     public void FreezeMovement(float duration)
