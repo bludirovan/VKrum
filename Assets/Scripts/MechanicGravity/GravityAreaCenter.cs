@@ -1,3 +1,67 @@
+using UnityEngine;
+
+public class GravityAreaCenter : GravityArea
+{
+    [Header("Ссылки для смены материала")]
+    public Renderer targetRenderer;
+    public Material positiveMaterial;
+    public Material negativeMaterial;
+
+    [Header("Дополнительный материал")]
+    [Tooltip("Если указать — при вызове ChangeToSpecificMaterial этот материал будет установлен")]
+    public Material specificMaterial;
+
+    private bool lastPolarity;
+
+    void Start()
+    {
+        ApplyMaterial();
+        lastPolarity = LocalPolarity;
+    }
+
+    void Update()
+    {
+        if (lastPolarity != LocalPolarity)
+        {
+            ApplyMaterial();
+            lastPolarity = LocalPolarity;
+        }
+    }
+
+    private void ApplyMaterial()
+    {
+        if (targetRenderer == null) return;
+        targetRenderer.material = LocalPolarity ? positiveMaterial : negativeMaterial;
+    }
+
+    public void ChangeToSpecificMaterial()
+    {
+        if (targetRenderer == null || specificMaterial == null) return;
+        targetRenderer.material = specificMaterial;
+        lastPolarity = LocalPolarity;
+    }
+
+    public override Vector3 GetGravityDirection(GravityBody gravityBody, bool isPositive)
+    {
+        Vector3 dir = (transform.position - gravityBody.transform.position).normalized;
+        return isPositive ? dir : -dir;
+    }
+
+    public override Vector3 GetGravityDirection(GravityBody gravityBody)
+    {
+        return GetGravityDirection(gravityBody, LocalPolarity);
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        ApplyMaterial();
+        lastPolarity = LocalPolarity;
+    }
+#endif
+}
+
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,3 +106,4 @@ public class GravityAreaCenter : GravityArea
     }
 #endif
 }
+*/
