@@ -837,6 +837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comicPieces: []
   delayAfterAll: 2
+  NameStartLevel: 
 --- !u!114 &1278520507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +882,7 @@ MonoBehaviour:
     delayBefore: 0.5
     fadeDuration: 1
   delayAfterAll: 2
+  NameStartLevel: main222
 --- !u!1 &1328826004
 GameObject:
   m_ObjectHideFlags: 0

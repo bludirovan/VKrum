@@ -2,30 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // Если хочешь переключать сцену
+using UnityEngine.SceneManagement; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
 public class ComicReveal : MonoBehaviour
 {
     [System.Serializable]
     public class ComicPiece
     {
-        public Image image;              // UI Image на Canvas
-        public float delayBefore;        // Задержка перед появлением
-        public float fadeDuration = 1f;  // Длительность плавного появления
+        public Image image;              // UI Image пїЅпїЅ Canvas
+        public float delayBefore;        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        public float fadeDuration = 1f;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 
     public List<ComicPiece> comicPieces = new List<ComicPiece>();
-    public float delayAfterAll = 2f; // Задержка перед переходом в игру
+    public float delayAfterAll = 2f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
+    public string NameStartLevel;
 
     private void Awake()
     {
-        // Прячем все картинки заранее, чтобы не мигали при старте
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         foreach (ComicPiece piece in comicPieces)
         {
             if (piece.image != null)
             {
                 piece.image.canvasRenderer.SetAlpha(0f);
-                piece.image.gameObject.SetActive(true); // Активируем, чтобы CrossFade работал
+                piece.image.gameObject.SetActive(true); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ CrossFade пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
         }
     }
@@ -48,7 +49,7 @@ public class ComicReveal : MonoBehaviour
 
         yield return new WaitForSeconds(delayAfterAll);
 
-        Debug.Log("Комикс показан! Переход в игру...");
-        // SceneManager.LoadScene("GameScene"); // Раскомментируй, если нужно переключение
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ...");
+        SceneManager.LoadScene(NameStartLevel); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 }
