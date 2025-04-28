@@ -114,4 +114,6 @@ public class Laser : MonoBehaviour, IOutput
     {
         activated = false;
     }
+
+    
 }
