@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09dd7f1f43d24174bd297e58e15588d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!23 &22442526
 MeshRenderer:
@@ -4021,17 +4021,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2c5ee3e35c1432d47a7e7ef783e793f6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.79
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c5ee3e35c1432d47a7e7ef783e793f6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.046
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c5ee3e35c1432d47a7e7ef783e793f6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -78.06
+      value: -78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c5ee3e35c1432d47a7e7ef783e793f6,
         type: 3}
@@ -4246,10 +4246,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 287211828}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c5ee3e35c1432d47a7e7ef783e793f6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 287211827}
   m_SourcePrefab: {fileID: 100100000, guid: 2c5ee3e35c1432d47a7e7ef783e793f6, type: 3}
 --- !u!1 &287211824 stripped
 GameObject:
@@ -4269,21 +4265,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 287211823}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &287211827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287211824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 559e2de3b29f348e3b7339cc0bcf774c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  deathScreen: {fileID: 0}
-  restartDelay: 3
 --- !u!114 &287211828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6800,8 +6781,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527714922}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000009554592, y: 0.80146265, z: -0.00001280447, w: 0.5980449}
-  m_LocalPosition: {x: -3.7843032, y: 19.20107, z: -77.19641}
+  m_LocalRotation: {x: 0.0000064646297, y: 0.80172354, z: -0.000008671387, w: 0.5976951}
+  m_LocalPosition: {x: -3.688785, y: 19.155071, z: -76.928154}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8239,7 +8220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09dd7f1f43d24174bd297e58e15588d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!23 &611794064
 MeshRenderer:
@@ -13682,7 +13663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09dd7f1f43d24174bd297e58e15588d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!23 &751594152
 MeshRenderer:
@@ -15394,7 +15375,7 @@ MonoBehaviour:
   distance: 5
   speed: 2
   laserLength: 10
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!65 &893170929
 BoxCollider:
@@ -17949,7 +17930,7 @@ MonoBehaviour:
   distance: 5
   speed: 2
   laserLength: 10
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!65 &1160568324
 BoxCollider:
@@ -19216,8 +19197,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279051997}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000009554592, y: 0.80146265, z: -0.00001280447, w: 0.5980449}
-  m_LocalPosition: {x: -11.457032, y: 19.201, z: -74.8902}
+  m_LocalRotation: {x: 0.0000064646297, y: 0.80172354, z: -0.000008671387, w: 0.5976951}
+  m_LocalPosition: {x: -10.667032, y: 19.155, z: -74.8302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19578,7 +19559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09dd7f1f43d24174bd297e58e15588d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!23 &1304493808
 MeshRenderer:
@@ -19681,7 +19662,7 @@ MonoBehaviour:
   distance: 5
   speed: 2
   laserLength: 10
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!65 &1304638354
 BoxCollider:
@@ -20318,7 +20299,7 @@ MonoBehaviour:
   distance: 5
   speed: 2
   laserLength: 10
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!65 &1340296530
 BoxCollider:
@@ -24055,7 +24036,7 @@ MonoBehaviour:
   distance: 5
   speed: 2
   laserLength: 10
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!65 &1667435788
 BoxCollider:
@@ -24797,7 +24778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09dd7f1f43d24174bd297e58e15588d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTarget: {x: 37.45, y: 17.3291, z: -129.11}
+  teleportTarget: {x: 0, y: 17, z: -78}
   freezeDuration: 0
 --- !u!23 &1714538267
 MeshRenderer:
